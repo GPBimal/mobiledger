@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Form</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <script>
+        function updatePaymentNarration() {
+            var paymentCode = document.getElementById("paymentCode").value;
+            var paymentNarration = document.getElementById("paymentNarration");
+
+            switch (paymentCode) {
+                case "0":
+                    paymentNarration.value = "सफ्टवयर नयाँ जडान गरेवापतको शुल्क GSD को माछापुच्छ्रे बैंकखातामा जम्मा";
+                    break;
+                case "1":
+                    paymentNarration.value = "२०८०/०३/३२ समको नविकरण शुल्क GSD को माछापुच्छ्रे बैंकखातामा जम्मा";
+                    break;
+                case "2":
+                    paymentNarration.value = "कमिशन वापतको रकम दिईएको";
+                    break;
+                case "5":
+                    paymentNarration.value = "मु.अ. कर वापतको रकम GSD को माछापुच्छ्रे बैंकखातामा जम्मा";
+                    break;
+                case "6":
+                    paymentNarration.value = "२०७९ को सेवाशुल्क वापतको रकम GSD को माछापुच्छ्रे बैंकखातामा जम्मा";
+                    break;
+                default:
+                    paymentNarration.value = "";
+            }
+        }
+
+        function cancel() {
+            window.location.href = "{% url 'home' %}";
+        }
+
+        // Function to set the default date to today's date
+        function setDefaultDate() {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+            var yyyy = today.getFullYear();
+
+            today = yyyy + '-' + mm + '-' + dd;
+            document.getElementById("transactionDate").value = today;
+        }
+
+        // Call setDefaultDate on page load
+        window.onload = setDefaultDate;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="newtrans-box">
+            <div class="header">
+                <h3>Payment Entry Form</h3>
+            </div>
+            <form method="POST" action="{% url 'karowar' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="customerIDNO">Customer IDNO:</label>
+                    <input type="number" id="customerIDNO" name="customerIDNO" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="transactionDate">Transaction Date:</label>
+                    <input type="date" id="transactionDate" name="transactionDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="paymentCode">Payment Code:</label>
+                    <select id="paymentCode" name="paymentCode" onchange="updatePaymentNarration()" required>
+                        <option value="0">नयाँ सफ्टवयर जडान</option>
+                        <option value="1">वार्षिक नविकरण</option>
+                        <option value="2">कमिशन दिएको</option>
+                        <option value="3">सफ्टवयर अपग्रेड</option>
+                        <option value="4">विविध दिईएको</option>
+                        <option value="5">VAT वापत लिईएको</option>
+                        <option value="6">सेवाशुल्क लिईएको</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="amount">Amount Rs:</label>
+                    <input type="number" id="amount" name="amount" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="paymentNarration">Payment Narration:</label>
+                    <input type="text" id="paymentNarration" name="paymentNarration" value="सफ्टवयर नयाँ जडान गरेवापतको शुल्क GSD को माछापुच्छ्रे बैंकखातामा जम्मा">
+                </div>
+
+                <div class="form-group">
+                    <label for="vatBillNo">VAT Bill No:</label>
+                    <input type="text" id="vatBillNo" name="vatBillNo" value="0"> <!-- Set default value to 0 -->
+                </div>
+
+                <div class="form-group">
+                    <label for="approved">Approved:</label>
+                    <select id="approved" name="approved">
+                        <option value="Yes" selected>Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn-primary" id="renewList">Save Transaction</button>
+                </div>
+    
+                <div class="form-group">
+                    <form action="{% url 'home' %}" method="GET">
+                        <button type="submit" class="btn-secondary" id="renewList">Cancel</button>
+                    </form>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to GSD</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="login-box"> <!-- Apply the login-box class for consistent styling -->
+            <div class="header">
+                <h3>GSD Ledger System</h3>
+            </div>
+                <center>
+                    <p style="font-size: 16px;">Pokhara - 33, Kaski</p>
+                </center>
+            <p>
+                <h5>Select a command</h5>
+            </p> 
+            <div class="form-group">
+                <form action="{% url 'find' %}" method="GET">
+                    <button type="submit" class="btn-secondary" id="clientfind_view">Search Client</button>
+                </form>
+            </div>
+            <div class="form-group">
+                <form action="{% url 'customer' %}" method="GET">
+                    <button type="submit" class="btn-secondary" id="newClient">New Client</button>
+                </form>
+            </div>
+            <div class="form-group">
+                <form action="{% url 'statement' %}" method="GET">
+                    <button type="submit" class="btn-secondary" id="clientLedger">Client's Ledger</button>
+                </form>
+            </div>
+            <div class="form-group">
+                <form action="{% url 'trans' %}" method="GET">
+                    <button type="submit" class="btn-secondary" id="newTransaction">New Transaction</button>
+                </form>
+            </div>
+            <div class="form-group">
+                <form action="{% url 'daybook' %}" method="GET">
+                    <button type="submit" class="btn-secondary" id="dayBook">Day-Book</button>
+                </form>
+            </div>
+            <div class="form-group">
+                <form action="{% url 'renew' %}" method="GET">
+                    <button type="submit" class="btn-secondary" id="renewList">Renew List</button>
+                </form>
+            </div>
+            <div class="form-group">
+                <form action="{% url 'backup' %}" method="GET">
+                    <button type="submit" class="btn-secondary" id="backup">Back UP</button>
+                </form>
+            </div>        
+        </div>
+    </div>
+</body>
+</html>

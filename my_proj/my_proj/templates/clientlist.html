@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Client List</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="signup-box">
+            <h3>Client List</h3>
+
+            <!-- Filtered Results -->
+            <ul class="filtered-list">
+                {% for customer in customers %}
+                    <li class="list-item">
+                        <span class="item-id">{{ customer.IDNO }}</span>
+                        <span class="item-fullname">{{ customer.FullName }}</span>
+                        <span class="item-distname">{{ customer.DistName }}</span>
+                    </li>
+                {% endfor %}
+            </ul>        
+
+            <div class="form-group">
+                <a href="{% url 'find' %}">
+                    <button class="btn-secondary btn-primary">Back to Search</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

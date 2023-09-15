@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Client Find</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="signup-box">
+            <h3>Client Find</h3>
+            
+            <form method="post" action="{% url 'clients' %}" id="filterForm">
+                {% csrf_token %}
+                <div class="form-group">
+                    Enter client's name to find
+                    <input type="text" name="full_name_filter" placeholder="Filter by Full Name" class="form-control">
+                </div>
+                <div class="form-group">
+                    Enter district name
+                    <input type="text" name="dist_name_filter" placeholder="Filter by District Name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn-secondary">Find</button>
+                </div>
+            </form>
+
+            <div class="form-group">
+                <a href="{% url 'home' %}">
+                    <button class="btn-secondary btn-primary">Back to Home</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle filter form visibility
+        document.getElementById('showFiltersButton').addEventListener('click', function () {
+            var filterForm = document.getElementById('filterForm');
+            if (filterForm.style.display === 'none' || filterForm.style.display === '') {
+                filterForm.style.display = 'block';
+            } else {
+                filterForm.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
